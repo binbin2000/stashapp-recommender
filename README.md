@@ -26,6 +26,8 @@ Open `http://localhost:8088`.
 
 ## Configuration
 
+You can configure the app with `config.yaml` or environment variables. Environment variables override values from `config.yaml`.
+
 Edit `config.yaml`:
 
 ```yaml
@@ -43,6 +45,25 @@ models:
 
 If your Stash instance requires an API key, set `stash.api_key`.
 
+Equivalent environment variables:
+
+```bash
+STASHAI_STASH_URL=http://localhost:9999/graphql
+STASHAI_STASH_API_KEY=
+STASHAI_STASH_PAGE_SIZE=100
+STASHAI_DATABASE_URL=sqlite:///./data/stashai.sqlite3
+STASHAI_MODELS_DIRECTORY=./models
+STASHAI_MODELS_POSITIVE_RATING_THRESHOLD=4
+STASHAI_MODELS_NEGATIVE_RATING_THRESHOLD=2
+STASHAI_MODELS_RECOMMENDATION_THRESHOLD=0.70
+STASHAI_MODELS_REVIEW_CONFIDENCE_THRESHOLD=0.35
+STASHAI_MODELS_REMOVAL_THRESHOLD=0.65
+STASHAI_APP_HOST=0.0.0.0
+STASHAI_APP_PORT=8088
+```
+
+Nested names such as `STASHAI_STASH__URL` are also supported.
+
 ## Commands
 
 ```bash
@@ -55,11 +76,18 @@ stashai run           # start the dashboard
 ## Docker
 
 ```bash
-cp config.example.yaml config.yaml
 docker compose up --build
 ```
 
 The dashboard is exposed on `http://localhost:8088`.
+
+The compose file configures the container directly through environment variables. Override any value inline or from your shell:
+
+```bash
+STASHAI_STASH_URL=http://host.docker.internal:9999/graphql \
+STASHAI_STASH_API_KEY=your-api-key \
+docker compose up
+```
 
 To run the published GHCR image:
 

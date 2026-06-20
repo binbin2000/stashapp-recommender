@@ -1,8 +1,7 @@
 FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    STASHAI_CONFIG=/app/config.yaml
+    PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
@@ -10,8 +9,6 @@ COPY pyproject.toml README.md ./
 COPY stashai ./stashai
 
 RUN pip install --no-cache-dir .
-
-COPY config.example.yaml ./config.yaml
 
 RUN mkdir -p /app/data /app/models \
     && useradd --create-home --shell /usr/sbin/nologin stashai \
