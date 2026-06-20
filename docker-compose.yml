@@ -1,0 +1,15 @@
+services:
+  stashai:
+    image: ghcr.io/binbin2000/stashapp-recommender:latest
+    build: .
+    container_name: stashapp-recommender
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+      - ./data:/app/data
+      - ./models:/app/models
+    environment:
+      - STASHAI_CONFIG=/app/config.yaml
+    restart: unless-stopped
+

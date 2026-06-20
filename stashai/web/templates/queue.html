@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ category.value.replace('_', ' ').title() }}</h1>
+<section class="list">
+  {% for item in items %}
+  <article class="row">
+    <div>
+      <a class="title" href="/scenes/{{ item.scene.id }}">{{ item.scene.title or "Untitled" }}</a>
+      <p>{{ item.explanation }}</p>
+    </div>
+    <div class="score">
+      <span>Score {{ "%.0f"|format(item.score * 100) }}%</span>
+      <span>Confidence {{ "%.0f"|format(item.confidence * 100) }}%</span>
+    </div>
+  </article>
+  {% else %}
+  <p class="empty">No recommendations in this queue yet.</p>
+  {% endfor %}
+</section>
+{% endblock %}
+

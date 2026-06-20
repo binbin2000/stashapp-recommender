@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StashAI Recommender</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">StashAI Recommender</a>
+      <nav>
+        <a href="/recommendations/recommended">Recommended</a>
+        <a href="/recommendations/review">Review</a>
+        <a href="/recommendations/likely_remove">Likely Remove</a>
+      </nav>
+    </header>
+    <main class="page">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
+

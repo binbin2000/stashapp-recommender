@@ -1,0 +1,20 @@
+stash:
+  url: "http://localhost:9999/graphql"
+  api_key: null
+  page_size: 100
+
+database:
+  url: "sqlite:///./data/stashai.sqlite3"
+
+models:
+  directory: "./models"
+  positive_rating_threshold: 4
+  negative_rating_threshold: 2
+  recommendation_threshold: 0.70
+  review_confidence_threshold: 0.35
+  removal_threshold: 0.65
+
+app:
+  host: "0.0.0.0"
+  port: 8088
+

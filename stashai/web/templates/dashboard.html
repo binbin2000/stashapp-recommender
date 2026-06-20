@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="actions">
+  <form method="post" action="/sync"><button type="submit">Sync Stash</button></form>
+  <form method="post" action="/recommendations/generate"><button type="submit">Train and Recommend</button></form>
+</section>
+
+<section class="metrics">
+  <div><span>Total Scenes</span><strong>{{ counts.total_scenes }}</strong></div>
+  <div><span>Rated Scenes</span><strong>{{ counts.rated_scenes }}</strong></div>
+  <div><span>Training Coverage</span><strong>{{ counts.training_coverage }}%</strong></div>
+  <div><span>Recommended</span><strong>{{ counts.recommended }}</strong></div>
+  <div><span>Review</span><strong>{{ counts.review }}</strong></div>
+  <div><span>Likely Remove</span><strong>{{ counts.likely_remove }}</strong></div>
+</section>
+{% endblock %}
+

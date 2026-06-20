@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="scene-header">
+  <div>
+    <h1>{{ scene.title or "Untitled" }}</h1>
+    <p>ID {{ scene.id }}</p>
+  </div>
+  <form method="post" action="/scenes/{{ scene.id }}/feedback" class="feedback">
+    <select name="action">
+      <option value="keep">Keep</option>
+      <option value="remove_candidate">Remove Candidate</option>
+      <option value="recommended">Recommended</option>
+      <option value="not_recommended">Not Recommended</option>
+      <option value="wrong_suggestion">Wrong Suggestion</option>
+    </select>
+    <input name="notes" placeholder="Optional note">
+    <button type="submit">Save Feedback</button>
+  </form>
+</section>
+
+<section class="details">
+  <div><span>Rating</span><strong>{{ scene.rating or "Unrated" }}</strong></div>
+  <div><span>Play Count</span><strong>{{ scene.play_count }}</strong></div>
+  <div><span>Duration</span><strong>{{ "%.0f"|format(scene.duration or 0) }}s</strong></div>
+  <div><span>Resolution</span><strong>{{ scene.width or 0 }}x{{ scene.height or 0 }}</strong></div>
+  <div><span>Markers</span><strong>{{ scene.marker_count }}</strong></div>
+  <div><span>Studio</span><strong>{{ scene.studio.name if scene.studio else "Unknown" }}</strong></div>
+</section>
+
+<section>
+  <h2>Recommendations</h2>
+  <div class="list">
+    {% for rec in scene.recommendations %}
+    <article class="row">
+      <div>
+        <strong>{{ rec.category.value.replace('_', ' ').title() }}</strong>
+        <p>{{ rec.explanation }}</p>
+      </div>
+      <div class="score"><span>{{ "%.0f"|format(rec.score * 100) }}%</span></div>
+    </article>
+    {% else %}
+    <p class="empty">No local recommendation for this scene.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section>
+  <h2>Similar Scenes</h2>
+  <div class="list">
+    {% for similar, score in similar_scenes if similar %}
+    <article class="row">
+      <a class="title" href="/scenes/{{ similar.id }}">{{ similar.title or "Untitled" }}</a>
+      <div class="score"><span>{{ "%.0f"|format(score * 100) }}% match</span></div>
+    </article>
+    {% else %}
+    <p class="empty">No similar scenes found.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+
